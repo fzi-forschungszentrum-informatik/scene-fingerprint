@@ -1,0 +1,16 @@
+# Preprocessed object list data
+*.pdata
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyc
+
+checks.json
+*/img/*
+images/*
+src/RSS/*
+/build/
+/src/scenario_criticality.egg-info/
+/src/utils/csv_object_list_dataset_loader/
+.idea/*
