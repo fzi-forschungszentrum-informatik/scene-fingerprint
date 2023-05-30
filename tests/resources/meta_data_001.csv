@@ -1,0 +1,2 @@
+id,frameRate_hz,locationId,speedLimit_kmh,date,weekDay,startTime,duration,originLat,originLon,spatAvailible,simulated,tracking,timeZone
+000,10,k733,50,2018-05-02,Wed,12:55:16.370,243,49.005306,8.4374089,no,no,online,GMT+2

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scenario_criticality"
+version='1.0.1'
+authors = [
+    {name = "Barbara Schütt", email = "schuett@fzi.de"},
+    {name = "Max Zipfl", email = "zipfl@fzi.de"},
+]
+description = "Analyses scenarios by custom metrics."
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["scenario", "criticality", "scene"]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "pandas",
+    "numpy",
+    'importlib-metadata; python_version<"3.8"',
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}

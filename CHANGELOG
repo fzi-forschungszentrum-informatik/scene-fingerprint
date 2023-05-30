@@ -1,0 +1,9 @@
+version 1.0.1
+- fix: traffic quality irregular timestep problem (as it happens with CARLA)
+- fix: error if some metrics are 0.0 an error code should not be returned
+- added: penalty term from new paper in traffic quality
+- added: TrafficQuality test
+- replaced setup.py with pyproject.toml
+
+version 1.0.0
+- initial project
