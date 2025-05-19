@@ -1,0 +1,54 @@
+[build-system]
+requires = ["maturin>=1.7,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "oncrit"
+version = "0.8.0"
+authors = [{ name = "Maximilian Zipfl", email = "zipfl@fzi.de" }]
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+# dynamic = ["version"]
+
+dependencies = [
+    "lanelet2>=1.2.1",
+    "numpy>=1.24.4",
+    "matplotlib>=3.7.5",
+    "pandas>=2.0.3",
+    "bottleneck==1.4.0",
+    "utm==0.8.1",
+    "maturin==1.7.0",
+]
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+
+[tool.setuptools]
+py-modules = ["oncrit"]
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".git",
+    ".git-rewrite",
+    ".venv",
+    ".vscode",
+    "docs",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+line-length = 99
+indent-width = 4
+target-version = "py38" # Assume Python 3.8

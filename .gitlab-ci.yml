@@ -1,0 +1,79 @@
+stages:
+  - build
+  - test
+
+variables:
+  VIRTUAL_ENV: .venv
+  MATURIN_BUILD_PROFILE: release
+  DEBIAN_FRONTEND: noninteractive
+
+build:
+  stage: build
+  image: ubuntu:22.04
+  # dependencies:
+  #   - setup
+  before_script:    
+    - apt-get update && apt-get install -y software-properties-common curl git build-essential
+    - curl https://sh.rustup.rs -sSf | sh -s -- -y
+    - source $HOME/.cargo/env
+    - apt-get update && apt-get install -y software-properties-common curl git build-essential
+    - add-apt-repository -y ppa:deadsnakes/ppa
+    - apt-get update
+    - apt-get install -y python3.9 python3.9-dev python3.10 python3.10-dev python3.11 python3.11-dev python3-pip
+    - pip3 install --upgrade pip maturin
+
+  script:
+    - maturin build --release -i python3.9 -o wheels39
+    - maturin build --release -i python3.10 -o wheels310
+    - maturin build --release -i python3.11 -o wheels311
+
+  artifacts:
+    paths:
+      - wheels39/
+      - wheels310/
+      - wheels311/
+    expire_in: 1 week
+
+test_py_3_09:
+  stage: test
+  image: python:3.9
+  dependencies:
+    - build
+  before_script:
+    - apt-get update && apt-get install -y python3-venv python3-dev
+    - python3 -m venv $VIRTUAL_ENV
+    - source $VIRTUAL_ENV/bin/activate
+    - pip install lanelet2
+    - pip install wheels39/*.whl
+  script:
+    - $VIRTUAL_ENV/bin/python -m unittest discover -s tests/ -p "*_test.py" -v
+
+test_py_3_10:
+  stage: test
+  image: python:3.10
+  dependencies:
+    - build
+  before_script:
+    - apt-get update && apt-get install -y python3-venv python3-dev
+    - python3 -m venv $VIRTUAL_ENV
+    - source $VIRTUAL_ENV/bin/activate
+    - pip install lanelet2
+    - pip install wheels310/*.whl
+  script:
+    - $VIRTUAL_ENV/bin/python -m unittest discover -s tests/ -p "*_test.py" -v
+
+test_py_3_11:
+  stage: test
+  image: python:3.11
+  dependencies:
+    - build
+  before_script:
+    - apt-get update && apt-get install -y python3-venv python3-dev
+    - python3 -m venv $VIRTUAL_ENV
+    - source $VIRTUAL_ENV/bin/activate
+    - pip install lanelet2
+    - pip install wheels311/*.whl
+  script:
+    - $VIRTUAL_ENV/bin/python -m unittest discover -s tests/ -p "*_test.py" -v
+
+
